@@ -1,0 +1,156 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Free Loan Calculator</title>
+
+    <style type="text/css">
+        /* TODO: Add styles! */
+    </style>
+</head>
+<body>
+    
+    <input id="loanAmount" type="text" placeholder="Enter a loan amount (GBP)" />
+    <input id="loanTerm" type="text" placeholder="Enter the number of months" />
+    <input id="loanAPR" type="text" placeholder="Enter the APR interest rate" />
+    <input id="submitInfo" type="submit" value="Calculate Payments" onclick="calculatePayments()" />
+
+    <div hidden>
+        <ul>
+            <li id="monthlyPayment"></li>
+            <li id="totalPayment"></li>
+            <li id="loanCost"></li>
+        </ul>
+    </div>
+    
+    <script type="text/javascript" lang="Javascript">
+        
+        var log = console.log;
+        
+        function roundNumber(r) {
+        var o = r.toFixed(2).split(".");
+        o[0] = o[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        var e = o.join(".");
+        return ".00" === e.slice(-3) && (e = e.slice(0, -3)),
+        e
+    }
+
+        function l(r) {
+            r = 1 + r / 100;
+            return 100 * (r = Math.pow(r, 1 / 12) - 1)
+        }
+
+        function calcTotalMonthlyAndCost(r, o, e) {
+            var t = l(o) / 100
+            , n = t * Math.pow(1 + t, e);
+            return n /= Math.pow(1 + t, e) - 1,
+            {
+                totalPayment: (n *= r) * e,
+                monthlyPayment: n,
+                loanCost: n * e - r
+            }
+        }
+
+        function assertNotEmpty(loanAmount, loanTerm, loanAPR, errorsList) {
+            if (loanAmount === "")
+                errorsList.push("Loan amount cannot be empty.");
+
+            if (loanTerm === "")
+                errorsList.push("Loan term cannot be empty.");
+
+            if (loanAPR === "")
+                errorsList.push("Loan APR cannot be empty.");
+        }
+
+        function assertValueIsANumber(value, notANumberMessage, errorsList) {
+            if (isNaN(value))
+                errorsList.push(notANumberMessage)
+        }
+
+        function assertLoanTermIsPositive(loanTerm, errorsList) {
+            if (loanTerm < 0)
+                errorsList.push("Loan term cannot be less than zero");
+        }
+
+        function assertLoanTermHasNoDecimalPoint(loanTerm, errorsList) {
+            if (loanTerm.indexOf(".") > 0)
+                errorsList.push("Loan term cannot have a decimal point '.'")
+        }
+
+        function validate(loanAmount, loanTerm, loanAPR) {
+            // Validate and return validation errors.
+            var validationErrors = [];
+            
+            assertNotEmpty(loanAmount, loanTerm, loanAPR, validationErrors);
+            
+            if (validationErrors.length === 0) {
+                assertValueIsANumber(loanAmount, "Loan amount is not a number", validationErrors);
+                assertValueIsANumber(loanTerm, "Loan term is not a number", validationErrors);
+                assertValueIsANumber(loanAPR, "Loan APR is not a number", validationErrors);
+            }
+            
+            if (validationErrors.length === 0) {
+                assertLoanTermIsPositive(loanTerm, validationErrors);
+                assertLoanTermHasNoDecimalPoint(loanTerm, validationErrors);
+            }
+
+            return validationErrors;
+        }
+
+        function convertToNumbers(loanAmount, loanTerm, loanAPR) {
+            return {
+                amount: Number(loanAmount),
+                term: Number(loanTerm),
+                apr: Number(loanAPR) 
+            }
+        }
+
+        function displayValidationErrors(validationErrors) {
+            // Show validation errors (maybe as an alert)
+            
+            var validationErrorMessage = "";
+            var errorCount = validationErrors.length;
+
+            for (let i = 0; i < errorCount; ++i) {
+                validationErrorMessage += validationErrors[i] + "\n";           
+            }
+            
+            alert(validationErrorMessage);
+        }
+        
+        function displayPayments(payments) {
+            // Show payments in the unordered list.
+
+            var monthly = document.getElementById("monthlyPayment");
+            var total = document.getElementById("totalPayment");
+            var cost = document.getElementById("loanCost");
+            
+
+            monthly.innerHTML = "<strong>Per month: " + roundNumber(payments.monthlyPayment) + " GBP</strong>"
+            total.innerHTML = "<strong>Total: " + roundNumber(payments.totalPayment) + " GBP</strong>"
+            cost.innerHTML = "<strong>Loan cost: " + roundNumber(payments.loanCost) + " GBP</strong>"
+
+            document.getElementsByTagName("div")[0].removeAttribute("hidden")
+        }
+
+        function calculatePayments() {
+            var loanAmount = document.getElementById("loanAmount").value;
+            var loanTerm = document.getElementById("loanTerm").value;
+            var loanAPR = document.getElementById("loanAPR").value;
+
+            validationErrors = validate(loanAmount, loanTerm, loanAPR);
+
+            if (validationErrors.length > 0) {
+                displayValidationErrors(validationErrors);
+            }
+
+            else {
+                var loanDetails = convertToNumbers(loanAmount, loanTerm, loanAPR);
+                var payments = calcTotalMonthlyAndCost(loanDetails.amount, loanDetails.apr, loanDetails.term);
+                displayPayments(payments);
+            }
+        }
+    </script>
+</body>
+</html>
