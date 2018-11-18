@@ -155,7 +155,8 @@
             total.innerHTML = "<strong>Total: " + roundNumber(payments.totalPayment) + "</strong>"
             cost.innerHTML = "<strong>Loan cost: " + roundNumber(payments.loanCost) + "</strong>"
 
-            document.getElementById("loanPayments").removeAttribute("hidden");
+            if (document.getElementById("loanPayments").hasAttribute("hidden"))
+                document.getElementById("loanPayments").removeAttribute("hidden");
         }
 
         function calculatePayments() {
