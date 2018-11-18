@@ -1,4 +1,4 @@
-# Free Loan Repayments Calculator
+# [Free loan repayments calculator](https://psybernetic.github.io/loan-repayments-calculator/)
 
 A simple web app that shows you:
 
