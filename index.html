@@ -7,21 +7,45 @@
 
     <style type="text/css">
         /* TODO: Add styles! */
+
+        input[type=text] {
+            width: 100%;
+            display: inline-block;
+        }
+
+        #loanDetails {
+            width: 25%;
+        }
+        
+        input[type=submit] {
+            margin-top: 10px;
+        }
+
     </style>
 </head>
 <body>
     
-    <input id="loanAmount" type="text" placeholder="Enter a loan amount (GBP)" />
-    <input id="loanTerm" type="text" placeholder="Enter the number of months" />
-    <input id="loanAPR" type="text" placeholder="Enter the APR interest rate" />
-    <input id="submitInfo" type="submit" value="Calculate Payments" onclick="calculatePayments()" />
-
-    <div hidden>
-        <ul>
-            <li id="monthlyPayment"></li>
-            <li id="totalPayment"></li>
-            <li id="loanCost"></li>
-        </ul>
+    <div id="app">
+        <div id="loanDetails">
+                <label for="loanAmount">How much?</label>
+                <input id="loanAmount" type="text" placeholder="Enter a loan amount" />
+        
+                <label for="loanTerm">How long?</label>
+                <input id="loanTerm" type="text" placeholder="Enter the number of months" />
+        
+                <label for="loanAPR">Interest Rate (APR)?</label>
+                <input id="loanAPR" type="text" placeholder="Enter the APR interest rate" />
+        
+                <input id="submitInfo" type="submit" value="Calculate Payments" onclick="calculatePayments()" />
+            </div>
+        
+            <div id="loanPayments" hidden>
+                <ul id="loanPaymentsInfo">
+                    <li id="monthlyPayment"></li>
+                    <li id="totalPayment"></li>
+                    <li id="loanCost"></li>
+                </ul>
+            </div>
     </div>
     
     <script type="text/javascript" lang="Javascript">
@@ -127,11 +151,11 @@
             var cost = document.getElementById("loanCost");
             
 
-            monthly.innerHTML = "<strong>Per month: " + roundNumber(payments.monthlyPayment) + " GBP</strong>"
-            total.innerHTML = "<strong>Total: " + roundNumber(payments.totalPayment) + " GBP</strong>"
-            cost.innerHTML = "<strong>Loan cost: " + roundNumber(payments.loanCost) + " GBP</strong>"
+            monthly.innerHTML = "<strong>Per month: " + roundNumber(payments.monthlyPayment) + "</strong>"
+            total.innerHTML = "<strong>Total: " + roundNumber(payments.totalPayment) + "</strong>"
+            cost.innerHTML = "<strong>Loan cost: " + roundNumber(payments.loanCost) + "</strong>"
 
-            document.getElementsByTagName("div")[0].removeAttribute("hidden")
+            document.getElementById("loanPayments").removeAttribute("hidden");
         }
 
         function calculatePayments() {
