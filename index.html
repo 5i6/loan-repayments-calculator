@@ -27,27 +27,25 @@
     
     <div id="app">
         <div id="loanDetails">
-                <label for="loanAmount">How much?</label>
-                <input id="loanAmount" type="text" placeholder="Enter a loan amount" />
-        
-                <label for="loanTerm">How long?</label>
-                <input id="loanTerm" type="text" placeholder="Enter the number of months" />
-        
-                <label for="loanAPR">Interest Rate (APR)?</label>
-                <input id="loanAPR" type="text" placeholder="Enter the APR interest rate" />
-        
-                <input id="submitInfo" type="submit" value="Calculate Payments" onclick="calculatePayments()" />
-            </div>
-        
-            <div id="loanPayments" hidden>
-                <ul id="loanPaymentsInfo">
-                    <li id="monthlyPayment"></li>
-                    <li id="totalPayment"></li>
-                    <li id="loanCost"></li>
-                </ul>
-            </div>
+            <label for="loanAmount">How much?</label>
+            <input id="loanAmount" type="text" placeholder="Enter a loan amount" />
+
+            <label for="loanTerm">How long?</label>
+            <input id="loanTerm" type="text" placeholder="Enter the number of months" />
+
+            <label for="loanAPR">Interest Rate (APR)?</label>
+            <input id="loanAPR" type="text" placeholder="Enter the APR interest rate" />
+
+            <input id="submitInfo" type="submit" value="Calculate Payments" onclick="calculatePayments()" />
+        </div>
+
+        <ul id="loanPaymentsInfo" hidden>
+            <li id="monthlyPayment"></li>
+            <li id="totalPayment"></li>
+            <li id="loanCost"></li>
+        </ul>
     </div>
-    
+
     <script type="text/javascript" lang="Javascript">
         
         var log = console.log;
@@ -155,8 +153,8 @@
             total.innerHTML = "<strong>Total: " + roundNumber(payments.totalPayment) + "</strong>"
             cost.innerHTML = "<strong>Loan cost: " + roundNumber(payments.loanCost) + "</strong>"
 
-            if (document.getElementById("loanPayments").hasAttribute("hidden"))
-                document.getElementById("loanPayments").removeAttribute("hidden");
+            if (document.getElementById("loanPaymentsInfo").hasAttribute("hidden"))
+                document.getElementById("loanPaymentsInfo").removeAttribute("hidden");
         }
 
         function calculatePayments() {
