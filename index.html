@@ -5,46 +5,42 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Free Loan Calculator</title>
 
-    <style type="text/css">
-        /* TODO: Add styles! */
-
-        input[type=text] {
-            width: 100%;
-            display: inline-block;
-        }
-
-        #loanDetails {
-            width: 25%;
-        }
-        
-        input[type=submit] {
-            margin-top: 10px;
-        }
-
-    </style>
+    <link rel="stylesheet" type="text/css" href="style.css" />
 </head>
 <body>
     
-    <div id="app">
-        <div id="loanDetails">
-            <label for="loanAmount">How much?</label>
-            <input id="loanAmount" type="text" placeholder="Enter a loan amount" />
-
-            <label for="loanTerm">How long?</label>
-            <input id="loanTerm" type="text" placeholder="Enter the number of months" />
-
-            <label for="loanAPR">Interest Rate (APR)?</label>
-            <input id="loanAPR" type="text" placeholder="Enter the APR interest rate" />
-
-            <input id="submitInfo" type="submit" value="Calculate Payments" onclick="calculatePayments()" />
+    <div id="container">
+        <div id="header">
+            <h1>Free Loan Calculator</h1>
         </div>
-
-        <ul id="loanPaymentsInfo" hidden>
-            <li id="monthlyPayment"></li>
-            <li id="totalPayment"></li>
-            <li id="loanCost"></li>
-        </ul>
+        <div id="content">
+            <div id="app">
+                <div id="loanDetails">
+                    <label for="loanAmount">How much?</label>
+                    <input id="loanAmount" type="text" placeholder="Enter a loan amount" />
+        
+                    <label for="loanTerm">How long?</label>
+                    <input id="loanTerm" type="text" placeholder="Enter the number of months" />
+        
+                    <label for="loanAPR">Interest Rate (APR)?</label>
+                    <input id="loanAPR" type="text" placeholder="Enter the APR interest rate" />
+        
+                    <input id="submitInfo" type="submit" value="Calculate Payments" onclick="calculatePayments()" />
+                </div>
+        
+                <ul id="loanPaymentsInfo" hidden>
+                    <li id="monthlyPayment"></li>
+                    <li id="totalPayment"></li>
+                    <li id="loanCost"></li>
+                </ul>
+            </div>
+        </div>
+        <div id="footer">
+            Psybernetic
+        </div>
     </div>
+
+    
 
     <script type="text/javascript" lang="Javascript">
         
