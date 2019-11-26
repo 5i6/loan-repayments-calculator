@@ -1,4 +1,4 @@
-# [Free loan repayments calculator](https://sidharth-vader.github.io/loan-repayments-calculator/)
+# [Free loan repayments calculator](https://sk-apps.github.io/loan-repayments-calculator/)
 
 A simple web app that shows you:
 
