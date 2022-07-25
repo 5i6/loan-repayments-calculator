@@ -1,4 +1,4 @@
-# [Free loan repayments calculator](https://51d.github.io/loan-repayments-calculator/)
+# [Free loan repayments calculator](https://sidsoftware.github.io/loan-repayments-calculator/)
 
 A simple web app that shows you:
 
